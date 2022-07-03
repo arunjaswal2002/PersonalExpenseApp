@@ -1,6 +1,7 @@
 # PersonalExpenseApp
 Preview of the App
 
+Link: https://youtu.be/8eTHgohfzFU
 
 A new Flutter project.
 This is the app i built using flutter and Dart. It is a personal expense tracker where you can add your daily expenses and choose a date on which you had this expense.
