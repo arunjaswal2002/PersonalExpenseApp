@@ -9,36 +9,38 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: < Widget > [
-        FittedBox(
-          child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
-        const SizedBox(
-            height: 4,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Column(
+        children: <Widget>[
+          Container(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                  child: Text('\$${spendingAmount.toStringAsFixed(0)}'))),
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
           ),
           Container(
-            height: 80,
+            height: constraints.maxHeight * 0.6,
             width: 10,
-            child: Stack(children: < Widget > [
-
+            child: Stack(children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1.0),
-                  color: Color.fromRGBO(220, 220, 220, 1),
-                  borderRadius: BorderRadius.circular(10),
-                )),
-              FractionallySizedBox(
-                heightFactor: spendingAmountPercentage,
-                child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(10)))),
-
+                border: Border.all(color: Colors.grey, width: 1.0),
+                color: Color.fromRGBO(220, 220, 220, 1),
+                borderRadius: BorderRadius.circular(10),
+              )),
+              FractionallySizedBox(
+                  heightFactor: spendingAmountPercentage,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(10)))),
             ]),
           ),
-          const SizedBox(height: 4),
-            Text(label),
-      ],
-    );
+          SizedBox(height: constraints.maxHeight * 0.05),
+          Container(height: constraints.maxHeight * 0.15, child: Text(label)),
+        ],
+      );
+    });
   }
 }
