@@ -12,7 +12,7 @@ class AdaptiveFlatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoButton(
-            child: Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
+            child:  Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: datePicker)
         : FlatButton(
             textColor: Theme.of(context).primaryColor,

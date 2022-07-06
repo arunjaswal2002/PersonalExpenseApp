@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import './transactionItem.dart';
 import '../Class/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -26,37 +26,16 @@ class TransactionList extends StatelessWidget {
           })
         : ListView.builder(
             itemBuilder: (context, index) {
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                elevation: 6,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: EdgeInsets.all(6),
-                      child: FittedBox(
-                          child: Text('\$${transactions[index].amount}')),
-                    ),
-                  ),
-                  title: Text(transactions[index].title),
-                  subtitle:
-                      Text(DateFormat.yMMMd().format(transactions[index].date)),
-                  trailing: MediaQuery.of(context).size.width > 450
-                      ? FlatButton.icon(
-                          //button with icon attached
-                          onPressed: () =>
-                              deleteTransaction(transactions[index].id),
-                          icon: Icon(Icons.delete),
-                          textColor: Colors.red,
-                          label: Text('Delete'))
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () =>
-                              deleteTransaction(transactions[index].id),
-                          color: Colors.red),
-                ),
-              );
-              // return Card(
+              return TransactionItem(transactions[index], deleteTransaction);
+            },
+            itemCount: transactions.length,
+            // children: transactions.map((tx) {
+
+            // }).toList(),
+          );
+  }
+}
+ // return Card(
               //   child: Row(
               //     children: <Widget>[
               //       Container(
@@ -102,11 +81,4 @@ class TransactionList extends StatelessWidget {
               //     ],
               //   ),
               // );
-            },
-            itemCount: transactions.length,
-            // children: transactions.map((tx) {
-
-            // }).toList(),
-          );
-  }
-}
+            

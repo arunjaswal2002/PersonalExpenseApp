@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import '../widgets/new_transaction.dart';
 import '../widgets/transaction_list.dart';
 import '../Class/transaction.dart';
@@ -97,9 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final dynamic appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text('Personal Expense '),
+            middle: const Text('Personal Expense '),
             trailing: GestureDetector(
-                child: Icon(CupertinoIcons.add),
+                child: const Icon(CupertinoIcons.add),
                 onTap: () => _startAddNewTransaction(context)))
         : AppBar(
             title: const Text('Personal Expenses',
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 onPressed: () => _startAddNewTransaction(context),
               ),
             ],
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Show Chart',
+                  const Text('Show Chart',
                       style: TextStyle(
                           fontFamily: 'OpenSans',
                           fontSize: 15,
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
             floatingActionButton: Platform.isIOS
                 ? Container()
                 : FloatingActionButton(
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                     onPressed: () => _startAddNewTransaction(context),
                   ),
           );
