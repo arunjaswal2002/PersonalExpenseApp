@@ -90,6 +90,48 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Widget> _builderLandscapeContent(
+      MediaQueryData mediaQuery, AppBar appBar, Container txList) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('Show Chart',
+              style: TextStyle(
+                  fontFamily: 'OpenSans', fontSize: 15, color: Colors.black)),
+          Switch.adaptive(
+              value: _showChart,
+              onChanged: (val) {
+                setState(() {
+                  _showChart = val;
+                });
+              })
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.5,
+              child: Chart(_recentTransaction))
+          : txList
+    ];
+  }
+
+  List<Widget> _builderPortraitContent(
+      MediaQueryData mediaQuery, AppBar appBar, Container txList) {
+    return [
+      Container(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.3,
+          child: Chart(_recentTransaction)),
+      txList
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -127,40 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text('Show Chart',
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          fontSize: 15,
-                          color: Colors.black)),
-                  Switch.adaptive(
-                      value: _showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _showChart = val;
-                        });
-                      })
-                ],
-              ),
+              ..._builderLandscapeContent(mediaQuery, appBar, txList),
             if (!isLandscape)
-              Container(
-                  height: (mediaQuery.size.height -
-                          appBar.preferredSize.height -
-                          mediaQuery.padding.top) *
-                      0.3,
-                  child: Chart(_recentTransaction)),
-            if (!isLandscape) txList,
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.5,
-                      child: Chart(_recentTransaction))
-                  : txList
+              ..._builderPortraitContent(mediaQuery, appBar, txList),
           ],
         ),
       ),
