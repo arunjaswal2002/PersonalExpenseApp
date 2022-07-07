@@ -132,28 +132,35 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  dynamic cupertinoNavigationBar() {
+    return CupertinoNavigationBar(
+        middle: const Text('Personal Expense '),
+        trailing: GestureDetector(
+            child: const Icon(CupertinoIcons.add),
+            onTap: () => _startAddNewTransaction(context)));
+  }
+
+  dynamic androidStyleAppBar() {
+    return AppBar(
+      title: const Text('Personal Expenses',
+          style:
+              TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
 
-    final dynamic appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: const Text('Personal Expense '),
-            trailing: GestureDetector(
-                child: const Icon(CupertinoIcons.add),
-                onTap: () => _startAddNewTransaction(context)))
-        : AppBar(
-            title: const Text('Personal Expenses',
-                style: TextStyle(
-                    fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _startAddNewTransaction(context),
-              ),
-            ],
-          );
+    final dynamic appBar =
+        Platform.isIOS ? cupertinoNavigationBar() : androidStyleAppBar();
 
     final txList = Container(
         height: (mediaQuery.size.height -
